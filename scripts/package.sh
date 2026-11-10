@@ -1,12 +1,13 @@
 #!/bin/bash
-# Builds the release binary and packages "AULA SC650.app", a .zip and a .dmg into dist/.
+# Builds a universal (arm64 + x86_64) release binary and packages "AULA SC650.app", a .zip and a .dmg into dist/.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-swift build -c release
+swift build -c release --arch arm64 --arch x86_64
+BIN="$(swift build -c release --arch arm64 --arch x86_64 --show-bin-path)"
 APP="dist/AULA SC650.app"
 rm -rf "$APP" dist/dmgroot dist/AULA-SC650.dmg dist/AULA-SC650.zip
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp .build/release/AulaApp "$APP/Contents/MacOS/AulaApp"
+cp "$BIN/AulaApp" "$APP/Contents/MacOS/AulaApp"
 [ -f Assets/mouse.png ] && cp Assets/mouse.png "$APP/Contents/Resources/mouse.png" || echo "note: Assets/mouse.png not found, using the generic mouse icon (see scripts/fetch-mouse-image.sh)"
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>

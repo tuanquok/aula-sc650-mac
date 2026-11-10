@@ -25,18 +25,20 @@ Settings are stored locally: the mouse has no read-back command, so the app reme
 
 ## Install
 
-Download `AULA-SC650.dmg` from the Releases page, drag the app to Applications.
-The app is ad-hoc signed (no Apple Developer ID), so the first time use **right-click > Open**.
-If macOS still blocks it: `xattr -dr com.apple.quarantine "/Applications/AULA SC650.app"`.
+1. Download **`AULA-SC650.dmg`** from the [latest release](https://github.com/tuanquok/aula-mac/releases/latest). No build needed.
+2. Open it and drag **AULA SC650** to **Applications**.
+3. First launch: the app is ad-hoc signed (no paid Apple Developer ID), so macOS warns about it.
+   - macOS 13/14: right-click the app, choose **Open**, then **Open** again.
+   - macOS 15+: try to open it once, then go to **System Settings > Privacy & Security** and click **Open Anyway**.
+   - Or from Terminal: `xattr -dr com.apple.quarantine "/Applications/AULA SC650.app"`
+4. **Bluetooth:** macOS asks for Bluetooth access on first launch. Click **Allow**.
 
-**Bluetooth:** macOS asks for Bluetooth access on first launch. Click **Allow**.
-
-Requires macOS 13 or later, Apple Silicon or Intel (build from source for Intel).
+Requires macOS 13 or later. Universal binary (Apple Silicon and Intel).
 
 ### Build from source
 
 ```bash
-git clone <this repo> && cd aula-mac
+git clone https://github.com/tuanquok/aula-mac.git && cd aula-mac
 swift test                 # unit tests
 ./scripts/package.sh       # builds dist/AULA SC650.app, .zip and .dmg
 ```
@@ -85,7 +87,7 @@ Tests             packet encoding tests
 
 ## Status
 
-Tested on one SC650 (macOS 14, Apple Silicon).
+Tested on one SC650 (macOS 14, Apple Silicon). The Intel half of the universal build is compiled but untested.
 
 | | Receiver 2.4G | Bluetooth LE | USB cable |
 |---|:-:|:-:|:-:|
