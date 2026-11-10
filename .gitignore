@@ -1,0 +1,7 @@
+.build/
+dist/
+.swiftpm/
+.DS_Store
+*.xcodeproj
+# Vendor artwork: never commit it. Run scripts/fetch-mouse-image.sh to fetch it from your own installer.
+Assets/mouse.png
